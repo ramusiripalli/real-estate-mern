@@ -9,8 +9,12 @@ export default function Header() {
      <div className='flex justify-between items-center max-w-6xl mx-auto' >
         <Link to='/'>
         <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'> 
-            <span className='text-slate-500'>Palasa</span>
-            <span className='text-slate-500'>Estate</span>
+        <span className='text-slate-500 text-3xl'>P</span>
+        <span className='flex items-center'>
+            <span className='text-slate-500 underline'>ALASA</span>
+            <span className='text-slate-500 underline'>ESTAT</span>
+            </span>
+            <span className='text-slate-500 text-3xl'>E</span>
         </h1>
         </Link>
       
