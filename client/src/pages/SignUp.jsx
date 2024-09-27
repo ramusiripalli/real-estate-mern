@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 export default function SignUp() {
   const [formData, setFormData] = useState ({});
+  const [error,setError] = useState(null);
+  const [loading,setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleChange= (e) => {
     setFormData({
       ...formData,
@@ -10,9 +14,35 @@ export default function SignUp() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
+      setLoading(true);
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+        },
+        body : JSON.stringify(formData),
+      });
+      const data = await res.json();
+      console.log(data);
+      if(data.success  === false){
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      navigate('/sign-in');
+    } catch (error) {
+      setLoading(false);
+      setError(data.message);
+    }
+    
+    
   };
+  
   console.log(formData);
   return (
 <div className="min-h-screen p-5 flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
@@ -63,11 +93,11 @@ export default function SignUp() {
     </div>
 
     <div className="flex items-center justify-between">
-      <button
+      <button disabled={loading}
         type="submit"
-        className="w-full py-3 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition ease-in-out duration-300"
+        className="w-full py-3 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition ease-in-out duration-300 uppercase"
       >
-        Sign Up
+        {loading ? 'Loading...' : 'Sign Up'}
       </button>
     </div>
   </form>
@@ -76,6 +106,7 @@ export default function SignUp() {
    <p>Already have an account?{' '}</p> 
     <Link to={'/sign-in'} ><span className="text-indigo-500 font-medium hover:text-indigo-700 pl-3 text-xl">  Sign in</span></Link>
   </p>
+  {error && <p className='text-red-500 mt-5'>{error}</p>}
 </div>
 </div>
   )
