@@ -11,7 +11,7 @@ export default function SignUp() {
         <input type='password' placeholder='password...' className='border p-3 rounded-lg' id='password' />
         <button className='bg-slate-800 text-white p-3 rounded-lg uppercase hover:opacity-85 disabled:opacity-55'>Sign Up</button>
       </form>
-      <div className='flex gap-4'>
+      <div className='flex gap-4 mt-5'>
         <p>Have an account?</p>
         <Link><span className='text-blue-700'>Sign in</span></Link>
       </div>
