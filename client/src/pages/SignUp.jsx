@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function SignUp() {
+  const [formData, setFormData] = useState ({});
+  const handleChange= (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id] : e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  console.log(formData);
   return (
 <div className="min-h-screen p-5 flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
-<div className="bg-white p-10 rounded-lg shadow-lg max-w-md w-full">
+<div className="bg-white p-10 rounded-lg shadow-lg shadow-black max-w-md w-full m-2">
   <h2 className="text-3xl font-bold text-center text-gray-800 mb-5">
     Create Your Account
   </h2>
   
-  <form>
+  <form onSubmit={handleSubmit}>
     <div className="mb-6">
       <label htmlFor="name" className="block text-sm font-medium text-gray-700">User Name</label>
-      <input
+      <input  onChange={handleChange}
         type="text"
         id="username"
         placeholder="Enter your user name"
@@ -22,7 +34,7 @@ export default function SignUp() {
 
     <div className="mb-6">
       <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
-      <input
+      <input onChange={handleChange}
         type="email"
         id="email"
         placeholder="Enter your email"
@@ -32,7 +44,7 @@ export default function SignUp() {
 
     <div className="mb-6">
       <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-      <input
+      <input onChange={handleChange}
         type="password"
         id="password"
         placeholder="Enter your password"
@@ -42,7 +54,7 @@ export default function SignUp() {
 
     <div className="mb-6">
       <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">Confirm Password</label>
-      <input
+      <input onChange={handleChange}
         type="password"
         id="confirm-password"
         placeholder="Confirm your password"
@@ -53,7 +65,7 @@ export default function SignUp() {
     <div className="flex items-center justify-between">
       <button
         type="submit"
-        className="w-full py-3 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition ease-in-out duration-300"
+        className="w-full py-3 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition ease-in-out duration-300"
       >
         Sign Up
       </button>
